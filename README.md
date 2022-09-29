@@ -12,7 +12,7 @@
 ## Endpoints
 
 ```json
-GET /v2/
+GET /v1/
 
 {
 	"message":"poop",
