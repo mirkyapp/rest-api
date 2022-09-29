@@ -1,0 +1,44 @@
+org: dickey
+app: mirky-api
+service: mirky-api
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+
+functions:
+  api:
+    handler: handler.handler
+    events:
+      - httpApi: '*'
+
+plugins:
+  - serverless-domain-manager
+  - serverless-certificate-creator
+
+custom:
+
+  # Amazon Certificate Manager
+  customCertificate:
+    hostedZoneNames: "api.mirky.app." # don't forget the dot on the end - is required by Route53
+    certificateName: api.mirky.app
+    region: us-east-1
+
+  domains:
+    dev:
+      domainName: api.mirky.app
+      certificateName: api.mirky.app
+
+  # Route53
+  customDomain:
+    domainName: api.mirky.app
+    stage: dev
+    basePath: v1
+    certificateName: 'api.mirky.app'
+    createRoute53Record: true
+    createRoute53IPv6Record: true
+    endpointType: 'regional'
+    securityPolicy: tls_1_2
+    apiType: http
+    autoDomain: false

@@ -1,0 +1,13 @@
+{
+  "name": "mirky-api",
+  "version": "1.0.0",
+  "description": "",
+  "dependencies": {
+    "express": "^4.17.1",
+    "serverless-http": "^2.7.0"
+  },
+  "devDependencies": {
+    "serverless-certificate-creator": "^1.6.0",
+    "serverless-domain-manager": "^6.1.0"
+  }
+}
