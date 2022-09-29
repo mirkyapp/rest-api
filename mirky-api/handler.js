@@ -1,30 +1,18 @@
+const express = require('express');
 const serverless = require("serverless-http");
-const express = require("express");
+
+// Set up app
 const app = express();
-const { connectDb } = require("./utils/db");
 
-const db = connectDb();
+// Require utils
 
-app.get("/", (req, res, next) => {
-  const data = db.collection("test").find({}).toArray();
-  return res.status(200).json({
-    message: "poop",
-    data
-  });
-});
+// Require routes
+const baseRoute = require("./routes/baseRoute");
 
-app.get("/v2", (req, res, next) => {
-  return res.status(200).json({
-    message: "lmao",
-  });
-});
+// Define Routes
+app.get('/', baseRoute.home)
 
-app.get("/hello", (req, res, next) => {
-  return res.status(200).json({
-    message: "Hello from path!",
-  });
-});
-
+// Define error handlers
 app.use((req, res, next) => {
   return res.status(404).json({
     error: "Not Found",
@@ -35,4 +23,5 @@ app.use((req, res, next) => {
 //   console.log("Server is running on port 8080");
 // });
 
+// Export app to serverless
 module.exports.handler = serverless(app);

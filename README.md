@@ -19,11 +19,3 @@ GET /v2/
 	"data":{}
 }
 ```
-
-```json
-GET /v2/hello
-
-{
- "message":"Hello from path!"
-}
-```
