@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
+    "dotenv": "^16.0.2",
     "express": "^4.17.1",
+    "mongodb": "^4.10.0",
+    "serverless-domain-manager": "^6.1.0",
     "serverless-http": "^2.7.0"
   },
-  "devDependencies": {
-    "serverless-certificate-creator": "^1.6.0",
-    "serverless-domain-manager": "^6.1.0"
+  "scripts": {
+    "dev-deploy": "sls deploy --stage dev --verbose",
+    "prod-deploy": "sls deploy --stage prod --verbose"
   }
 }
