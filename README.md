@@ -11,7 +11,7 @@
 
 ## Endpoints
 
-```json
+```
 GET /v1/
 
 {
@@ -21,7 +21,7 @@ GET /v1/
 
 ### Auth Routes
 
-```json
+```
 POST /v1/auth/annonSession
 
 {
@@ -29,7 +29,7 @@ POST /v1/auth/annonSession
 }
 ```
 
-```json
+```
 POST /v1/auth/signup
 
 {
@@ -38,7 +38,7 @@ POST /v1/auth/signup
 }
 ```
 
-```json
+```
 POST /v1/auth/login
 
 {
@@ -49,7 +49,7 @@ POST /v1/auth/login
 
 ### Property Routes
 
-```json
+```
 POST /v1/property/create
 
 {
@@ -68,7 +68,7 @@ POST /v1/property/create
 		
 ```
 
-```json
+```
 POST /v1/property/fetch-users-props
 
 {
