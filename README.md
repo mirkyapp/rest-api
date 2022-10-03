@@ -15,7 +15,7 @@
 GET /v1/
 
 {
-	"message":"poop"
+	"message":"Welcome to Mirky API, read the docs -> https://github.com/MirkyAnalytics/rest-api"
 }
 ```
 
