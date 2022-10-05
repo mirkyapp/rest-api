@@ -13,13 +13,17 @@ const db = connectDb();
 // route /property/create
 exports.create = async function(req, res) {
 
-    const { sessionId, propName, companyName, website, industry, companySize } = req.body;
+    // get session id from auth header
+    const b64auth = (req.headers.authorization || '').split(' ')[1] || ''
+    const [sessionId, password] = Buffer.from(b64auth, 'base64').toString().split(':')
+
+    const { propName, companyName, website, industry, companySize } = req.body;
 
     // validate session
     var session = await db.collection('sessions').findOne({
         sessionId: sessionId
     });
-    if (!session) {
+    if (session.userId == null) {
         return res.status(403).json({
             error: 'Invalid session'
         });
@@ -51,26 +55,33 @@ exports.create = async function(req, res) {
 
 // fetch properties by uid
 exports.fetchByUid = async function(req, res) {
+    
+    const { uid } = req.params;
 
-    const { sessionId } = req.body;
-
-    // validate session
+    // determine if the uid is a session id or a user id
     var session = await db.collection('sessions').findOne({
-        sessionId: sessionId
+        sessionId: uid
     });
-    if (!session) {
-        return res.status(403).json({
-            error: 'Invalid session'
+    if (session) {
+        // uid is a session id
+        if (session.userId == null) {
+            return res.status(403).json({
+                error: 'Invalid session'
+            });
+        }
+        var properties = await db.collection('properties').find({
+            members: session.userId
+        }).toArray();
+        return res.status(200).json({
+            properties: properties
+        });
+    } else {
+        // uid is a user id
+        var properties = await db.collection('properties').find({
+            members: uid
+        }).toArray();
+        return res.status(200).json({
+            properties: properties
         });
     }
-
-    var uid = session.userId;
-
-    // fetch properties
-    var properties = await db.collection('properties').find({ members: uid }).toArray();
-
-    // return properties
-    return res.status(200).json({
-        properties: properties
-    });
 }
