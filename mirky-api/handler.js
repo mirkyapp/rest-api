@@ -128,8 +128,9 @@ app.use((req, res, next) => {
   });
 });
 
+// listen on port 8080
 server.listen(8080, () => {
-  console.log("Server is running on port 8080");
+  console.log('listening on *:8080');
 });
 
 // Export app to serverless
