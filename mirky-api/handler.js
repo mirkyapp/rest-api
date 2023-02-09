@@ -75,41 +75,41 @@ app.get('/', baseRoute.home);
 
 // Auth routes
 // Anon session
-app.post('/auth/anon-session', authRoutes.anonSession);
+app.post('/v1/auth/anon-session', authRoutes.anonSession);
 
 // Signup
-app.post('/auth/signup', authRoutes.signup);
+app.post('/v1/auth/signup', authRoutes.signup);
 
 // Login
-app.post('/auth/login', authRoutes.login);
+app.post('/v1/auth/login', authRoutes.login);
 
 // Properties routes
 // create property
-app.post('/property/create', propertiesRoutes.create);
+app.post('/v1/property/create', propertiesRoutes.create);
 
 // fetch properties by uid
 // TODO: change to get request, and change logic in route
-app.get('/property/fetch-users-props/:uid', propertiesRoutes.fetchByUid);
+app.get('/v1/property/fetch-users-props/:uid', propertiesRoutes.fetchByUid);
 
 // fetch property by propId
-app.get('/property/fetch-prop/:propId', propertiesRoutes.fetchByPropId);
+app.get('/v1/property/fetch-prop/:propId', propertiesRoutes.fetchByPropId);
 
 // update property logo
-app.post('/property/:propId/update/logo', propertiesRoutes.updateLogo);
+app.post('/v1/property/:propId/update/logo', propertiesRoutes.updateLogo);
 
 // User routes
 // fetch user by uid
-app.get('/user/:uid', userRoutes.fetchByUid);
+app.get('/v1/user/:uid', userRoutes.fetchByUid);
 
 // update profile picture
-app.post('/user/:uid/update/profile-picture', userRoutes.updateProfilePicture);
+app.post('/v1/user/:uid/update/profile-picture', userRoutes.updateProfilePicture);
 
 // update variable user fields
-app.post('/user/:uid/update/:field', userRoutes.updateField);
+app.post('/v1/user/:uid/update/:field', userRoutes.updateField);
 
 // Analytics routes
 // Verify prop id
-app.get('/analytics/:propId/verify', analyticsRoutes.verifyPropId);
+app.get('/v1/analytics/:propId/verify', analyticsRoutes.verifyPropId);
 
 // Handle page view events
 // app.post('/analytics/:propId/page-view', analyticsRoutes.pageView);
