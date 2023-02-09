@@ -6,6 +6,7 @@ frameworkVersion: '3'
 provider:
   name: aws
   runtime: nodejs14.x
+  websocketsApiName: mirky-websocket-api
 
 plugins:
   - serverless-domain-manager
@@ -15,16 +16,38 @@ functions:
     handler: handler.handler
     events:
       - httpApi: '*'
+  connectHandler:
+    handler: handler.connectHandler
+    events:
+      - websocket:
+          route: $connect
+  disconnectHandler:
+    handler: handler.disconnectHandler
+    events:
+      - websocket:
+          route: $disconnect
 	
 custom:
   customDomain:
-    domainName: api.mirky.app
-    stage: dev
-    basePath: v1
-    certificateName: 'api.mirky.app'
-    createRoute53Record: true
-    createRoute53IPv6Record: true
-    endpointType: 'regional'
-    securityPolicy: tls_1_2
-    apiType: http
-    autoDomain: false
+    http:
+      domainName: api.mirky.app
+      stage: dev
+      basePath: v1
+      certificateName: 'api.mirky.app'
+      createRoute53Record: true
+      createRoute53IPv6Record: true
+      endpointType: 'regional'
+      securityPolicy: tls_1_2
+      apiType: http
+      autoDomain: false
+    websocket:
+      domainName: ws.mirky.app
+      stage: dev
+      basePath: v1
+      certificate: 'ws.mirky.app'
+      createRoute53Record: true
+      createRoute53IPv6Record: true
+      endpointType: 'regional'
+      securityPolicy: tls_1_2
+      apiType: websocket
+      autoDomain: false
