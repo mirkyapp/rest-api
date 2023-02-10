@@ -112,7 +112,7 @@ app.post('/v1/user/:uid/update/:field', userRoutes.updateField);
 app.get('/v1/analytics/:propId/verify', analyticsRoutes.verifyPropId);
 
 // Handle page view events
-app.post('/analytics/:propId/page-view', analyticsRoutes.pageView);
+app.post('/v1/analytics/:propId/page-view', analyticsRoutes.pageView);
 
 // export the websocket handlers
 // Connect
