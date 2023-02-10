@@ -76,9 +76,14 @@ exports.pageView = async function(req, res) {
     });
 }
 
+io.on('piss', (data) => {
+    console.log(data)
+})
+
 // User connects/disconnects
 io.on('connection', (socket) => {
-
+    
+    // get the prop id from the emit data
     const propId = socket.handshake.query.propId;
 
     // reply to the client that the connection was successful
