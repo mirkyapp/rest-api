@@ -9,7 +9,7 @@ const { genSessionId } = require('../utils/genSessionId');
 const { genEncryptKey } = require('../utils/genEncryptKey');
 const { decrypt } = require('../utils/decrypt');
 const { upload } = require('../utils/upload');
-// const { io } = require('../handler');
+const { io } = require('../handler');
 
 // Connect to the db
 const db = connectDb();
@@ -76,36 +76,42 @@ exports.pageView = async function(req, res) {
     });
 }
 
-// // User connects/disconnects
-// io.on('connection', (socket) => {
-//     const propId = socket.handshake.query.propId;
+// User connects/disconnects
+io.on('connection', (socket) => {
 
-//     // Add a user to the analytics collection
-//     db.collection('properties').updateOne({
-//         propId: propId
-//     }, {
-//         $push: {
-//             'analytics.presetEvents.1.counts': {
-//                 value: 1,
-//                 socketId: socket.id,
-//                 timestamp: Date.now()
-//             }
-//         }
-//     });
+    const propId = socket.handshake.query.propId;
 
-//     // When a user disconnects, remove them from the analytics collection
-//     socket.on('disconnect', () => {
-//         db.collection('properties').updateOne({
-//             propId: propId
-//         }, {
-//             $pull: {
-//                 'analytics.presetEvents.1.counts': {
-//                     socketId: socket.id
-//                 }
-//             }
-//         });
-//     })
-// });
+    // reply to the client that the connection was successful
+    socket.emit('connection', {
+        message: propId + ' connected' + socket.id,
+    });
+
+    // Add a user to the analytics collection
+    db.collection('properties').updateOne({
+        propId: propId
+    }, {
+        $push: {
+            'analytics.presetEvents.1.counts': {
+                value: 1,
+                socketId: socket.id,
+                timestamp: Date.now()
+            }
+        }
+    });
+
+    // When a user disconnects, remove them from the analytics collection
+    socket.on('disconnect', () => {
+        db.collection('properties').updateOne({
+            propId: propId
+        }, {
+            $pull: {
+                'analytics.presetEvents.1.counts': {
+                    socketId: socket.id
+                }
+            }
+        });
+    })
+});
 
 // Websocket connect handler
 exports.connectHandler = async (event, context) => {

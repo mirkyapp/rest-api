@@ -2,7 +2,7 @@ const express = require('express');
 const serverless = require("serverless-http");
 var bodyParser = require('body-parser')
 var http = require('http');
-// const { Server } = require("socket.io");
+const { Server } = require("socket.io");
 
 // Set up app
 const app = express();
@@ -13,14 +13,14 @@ app.use(bodyParser.json());
 var cors = require('cors');
 app.use(cors());
 
-// // Set up socket
-// const io = new Server(server, {
-//   cors: {
-//     origin: ['https://mirky.app', 'http://localhost:3000'],
-//   }
+// Set up socket
+const io = new Server(server, {
+  // cors: {
+  //   origin: ['https://mirky.app', 'http://localhost:3000'],
+  // }
 
-// });
-// exports.io = io;
+});
+exports.io = io;
 
 // Require utils
 const { connectDb } = require('./utils/db');
@@ -112,7 +112,7 @@ app.post('/v1/user/:uid/update/:field', userRoutes.updateField);
 app.get('/v1/analytics/:propId/verify', analyticsRoutes.verifyPropId);
 
 // Handle page view events
-// app.post('/analytics/:propId/page-view', analyticsRoutes.pageView);
+app.post('/analytics/:propId/page-view', analyticsRoutes.pageView);
 
 // export the websocket handlers
 // Connect
