@@ -15,9 +15,9 @@ app.use(cors());
 
 // Set up socket
 const io = new Server(server, {
-  // cors: {
-  //   origin: ['https://mirky.app', 'http://localhost:3000'],
-  // }
+  cors: {
+    origin: ['https://mirky.app', 'http://localhost:3000'],
+  }
 
 });
 exports.io = io;
