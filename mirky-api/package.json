@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "dependencies": {
-    "aws-sdk": "^2.1229.0",
+    "aws-sdk": "^2.1354.0",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "crypto-js": "^4.1.1",
